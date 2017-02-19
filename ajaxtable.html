@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ajax Demo</title>
+        
+    </head>
+
+    <body>
+        <h1>Ajax Examples</h1>
+        <div style="min-height: 200px; border: 1px solid blue; padding: 10px; margin: 10px 0">
+            <h2>JavaScript Ajax Example</h2>
+            <button onclick="jsAjaxHandler()" type="button">Load Data</button>
+            <button onclick="deleteJSTable()" id="delete-js-btn" style="display:none;" type="button">Reset</button>
+
+            <div id="js-content"></div>
+        </div>
+        
+
+
+        <script>
+            function jsAjaxHandler(){
+
+                
+
+                //var xhr = getXMLHttpRequest();
+                var xhr = new XMLHttpRequest(); //This is all you would need for IE7+
+                var xhr_results = '';
+                if (xhr != null) {
+                    xhr.open("GET", "http://libertyville.rice.iit.edu/scripts/datetable.php", true);
+                    xhr.onreadystatechange = function(){
+                        if (xhr.readyState == 4) {
+                            xhr_results = xhr.responseText;
+                            document.getElementById('js-content').innerHTML = xhr_results;
+                            document.getElementById('delete-js-btn').style.display = 'inline';
+                        }
+                    };
+                    xhr.send();
+                }
+
+            }
+
+
+         
+
+            function deleteJSTable(){
+                var element = document.getElementById('js-content');
+                while (element.firstChild) {
+                    element.removeChild(element.firstChild);
+                }
+                document.getElementById('delete-js-btn').style.display = 'none';
+            }
+
+
+        
+        </script>
+    </body>
+</html>
